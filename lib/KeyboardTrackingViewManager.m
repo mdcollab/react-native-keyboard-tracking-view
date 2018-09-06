@@ -87,20 +87,16 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
     return self;
 }
 
--(RCTRootView*)getRootView
+-(UIView*)getClosestParentScreenView
 {
     UIView *view = self;
     while (view.superview != nil)
     {
         view = view.superview;
-        if ([view isKindOfClass:[RCTRootView class]])
-            break;
+        if ([view.nativeID hasPrefix:@"screen:"]) break;
     }
-    
-    if ([view isKindOfClass:[RCTRootView class]])
-    {
-        return (RCTRootView*)view;
-    }
+
+    if ([view.nativeID hasPrefix:@"screen:"]) return view;
     return nil;
 }
 
@@ -165,7 +161,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
 
 - (void)initializeAccessoryViewsAndHandleInsets
 {
-    NSArray<UIView*>* allSubviews = [self getBreadthFirstSubviewsForView:[self getRootView]];
+    NSArray<UIView*>* allSubviews = [self getBreadthFirstSubviewsForView:[self getClosestParentScreenView]];
     NSMutableArray<RCTScrollView*>* rctScrollViewsArray = [NSMutableArray array];
     
     for (UIView* subview in allSubviews) {
@@ -491,7 +487,7 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
 - (void) rctContentDidAppearNotification:(NSNotification*)notification
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        if(notification.object == [self getRootView] && _manageScrollView && _scrollViewToManage == nil)
+        if(notification.object == [self getClosestParentScreenView] && _manageScrollView && _scrollViewToManage == nil)
         {
             [self initializeAccessoryViewsAndHandleInsets];
         }
