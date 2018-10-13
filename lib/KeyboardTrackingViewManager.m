@@ -87,6 +87,11 @@ typedef NS_ENUM(NSUInteger, KeyboardTrackingScrollBehavior) {
     return self;
 }
 
+- (void)setSubtractHeight:(CGFloat)subtractHeight
+{
+  _observingInputAccessoryView.subtractHeight = subtractHeight;
+}
+
 -(UIView*)getClosestParentScreenView
 {
     UIView *view = self;
@@ -626,6 +631,7 @@ RCT_REMAP_VIEW_PROPERTY(requiresSameParentToManageScrollView, requiresSameParent
 RCT_REMAP_VIEW_PROPERTY(addBottomView, addBottomView, BOOL)
 RCT_REMAP_VIEW_PROPERTY(scrollToFocusedInput, scrollToFocusedInput, BOOL)
 RCT_REMAP_VIEW_PROPERTY(allowHitsOutsideBounds, allowHitsOutsideBounds, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(subtractHeight, CGFloat)
 
 - (NSDictionary<NSString *, id> *)constantsToExport
 {

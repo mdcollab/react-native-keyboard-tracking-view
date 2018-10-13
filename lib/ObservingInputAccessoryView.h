@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, KeyboardState) {
 @property (nonatomic, weak) id<ObservingInputAccessoryViewDelegate> delegate;
 
 @property (nonatomic) CGFloat height;
+@property (nonatomic) CGFloat subtractHeight;
 @property (nonatomic, readonly) CGFloat keyboardHeight;
 @property (nonatomic, readonly) KeyboardState keyboardState;
 
